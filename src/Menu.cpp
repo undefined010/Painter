@@ -18,3 +18,15 @@ Menu::~Menu() {
 
 }
 
+
+void Menu::draw_on_canvas(sf::RenderWindow& window) {
+
+    if (!window.isOpen() || this->m_menuContent.size() == 0) return;
+    
+
+    for (auto& elem : this->m_menuContent) {
+        window.draw(*elem);
+    }
+
+}
+

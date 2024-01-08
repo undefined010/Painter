@@ -14,6 +14,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <vector>
+#include <cstdio>
 
 class Menu : public sf::RectangleShape {
 
@@ -23,12 +24,26 @@ public:
     * @brief Menu class Constructor
     * @param color -> menu color
     */
-    Menu(const sf::Color& color ) : m_menuColor(color) {}
+
+    Menu(const sf::Color& color ) : m_menuColor(color) {
+        this->setFillColor(this->m_menuColor);
+        this->setPosition(this->m_pos);
+        this->setSize(this->m_size);
+        fprintf(stderr , "Created\n");
+
+    }
+
+    /**
+    * @brief Menu class Destructor
+    */
+
     ~Menu();
-    
+
 public:
     void draw_on_canvas(sf::RenderWindow& window);
-    void update_menu();
+
+private:
+    void create_menu_content(sf::Shape* shape);
 
 private:
     sf::Color m_menuColor;
@@ -37,7 +52,7 @@ private:
 
 private:
     const sf::Vector2f m_size = {100.f,600.f};
-    const sf::Vector2f m_pos = {0.f,600.f};
+    const sf::Vector2f m_pos = {0.f,0.f};
 };
 
 

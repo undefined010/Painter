@@ -63,7 +63,7 @@ void Pen::cheak_circles(std::vector<sf::CircleShape*>& vec) {
 
 void Pen::update_pos(const sf::RenderWindow& window) {
     if (window.isOpen() == false) return;
-
+    
     this->pos.x = sf::Mouse::getPosition(window).x - this->radius;
     this->pos.y = sf::Mouse::getPosition(window).y - this->radius;
 
@@ -72,7 +72,7 @@ void Pen::update_pos(const sf::RenderWindow& window) {
 
 void Pen::rainbow_color() {
     
-    this->setFillColor(sf::Color(rand() % 255 , rand() % 255, rand() % 255 , rand() % 255));
+    this->setFillColor(sf::Color(rand() % 255 , rand() % 255, rand() % 255 , 255));
 
 }
 

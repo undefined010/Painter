@@ -14,8 +14,7 @@
  * @brief The Pen class represents a pen for a drawing application.
 **/
 
-
-class Pen : public sf::CircleShape 
+class Pen : public sf::CircleShape
 {
 
 public:
@@ -27,12 +26,19 @@ public:
      * @param pos1 The initial position of the pen.
     **/
 
+
     Pen(unsigned rad , const sf::Color& clr , const sf::Vector2f& pos1)
     : radius(rad) , color(clr) , pos(pos1)
     {
         this->setRadius(this->radius);
-        this->setOutlineColor(this->color);
         this->setFillColor(this->color);
+        this->setPosition(this->pos);
+    }
+
+    Pen(unsigned rad , const sf::Vector2f& pos1)
+    : radius(rad) , pos(pos1)
+    {
+        this->setRadius(this->radius);
         this->setPosition(this->pos);
     }
 
@@ -58,6 +64,9 @@ public:
     */
 
     void paint_on_canvase(sf::RenderWindow& window);
+
+    bool isClicked();
+
 
     /**
     * @brief Rainbow Color 

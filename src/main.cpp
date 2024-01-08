@@ -10,14 +10,15 @@
 **/
 
 #include "Pen.h"
+#include "Menu.h"
 
 int main() {
 
     sf::RenderWindow window(sf::VideoMode(800 , 600) , "Paint" , sf::Style::Titlebar | sf::Style::Close);
     sf::Event event;    
 
-    Pen pen(10 , sf::Color::White , sf::Vector2f(100 , 100));
-
+    Pen pen(10 , sf::Vector2f(100 , 100));
+    Menu menu(sf::Color::White);
 
     window.setFramerateLimit(400.f);
 
@@ -39,12 +40,13 @@ int main() {
 
         window.clear(sf::Color::Black);
 
+        
         pen.paint_on_canvase(window);
         pen.rainbow_color();
         pen.update_pos(window);
 
         window.draw(pen);
-
+        window.draw(menu);
 
         window.display();
 
