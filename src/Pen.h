@@ -59,6 +59,11 @@ public:
 
     void paint_on_canvase(sf::RenderWindow& window);
 
+    /**
+    * @brief Rainbow Color 
+    **/
+
+    void rainbow_color();
 
 private:
 

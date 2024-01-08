@@ -40,6 +40,7 @@ int main() {
         window.clear(sf::Color::Black);
 
         pen.paint_on_canvase(window);
+        pen.rainbow_color();
         pen.update_pos(window);
 
         window.draw(pen);

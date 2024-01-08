@@ -1,2 +1,2 @@
 all:
-	g++ src/*.cpp -o Paint -lsfml-window -lsfml-system -lsfml-graphics
+	g++ -std=c++17 src/*.cpp -o Paint -lsfml-window -lsfml-system -lsfml-graphics
