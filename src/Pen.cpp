@@ -5,7 +5,7 @@
 **/
 
 
-#define DEBUG_PEN true
+#define DEBUG_PEN false
 
 #include "Pen.h"
 #include <SFML/Graphics/CircleShape.hpp>

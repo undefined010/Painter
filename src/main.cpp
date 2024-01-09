@@ -17,8 +17,8 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(800 , 600) , "Paint" , sf::Style::Titlebar | sf::Style::Close);
     sf::Event event;    
 
-    Pen pen(10 , sf::Vector2f(100 , 100));
-    Menu menu(sf::Color::White);
+    Pen pen(10 , sf::Color::Red,sf::Vector2f(100 , 100));
+    Menu menu(sf::Color(50,50,50,255));
 
     window.setFramerateLimit(400.f);
 
@@ -40,13 +40,20 @@ int main() {
 
         window.clear(sf::Color::Black);
 
-        
+
         pen.paint_on_canvase(window);
-        pen.rainbow_color();
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+            pen.rainbow_color();
+        
         pen.update_pos(window);
 
         window.draw(pen);
         window.draw(menu);
+
+        menu.pen_click(pen);
+        menu.draw_on_canvas(window);
+
 
         window.display();
 

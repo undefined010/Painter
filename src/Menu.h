@@ -8,11 +8,14 @@
 * @note create a menu Manager
 **/
 
+#include "Pen.h"
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Shape.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <memory>
 #include <vector>
 #include <cstdio>
 
@@ -29,7 +32,10 @@ public:
         this->setFillColor(this->m_menuColor);
         this->setPosition(this->m_pos);
         this->setSize(this->m_size);
+
         fprintf(stderr , "Created\n");
+
+        //this->init();
 
     }
 
@@ -41,14 +47,14 @@ public:
 
 public:
     void draw_on_canvas(sf::RenderWindow& window);
-
+    void pen_click(Pen& pen);
 private:
-    void create_menu_content(sf::Shape* shape);
+    void init();
+    void create_menu_content(std::shared_ptr<sf::RectangleShape> rect);
 
 private:
     sf::Color m_menuColor;
-    std::vector<sf::RectangleShape*> m_menuContent;
-
+    std::vector<std::shared_ptr<sf::RectangleShape>> m_menuContent;
 
 private:
     const sf::Vector2f m_size = {100.f,600.f};
