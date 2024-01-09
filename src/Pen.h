@@ -69,12 +69,17 @@ public:
 
 
     /**
-    * @brief Rainbow Color 
+    * @brief random colors 
     **/
 
     void rainbow_color();
 
 private:
+    /**
+    * @brief Delete all circles inside the @param circles
+    **/
+
+    void clear_all();
 
     /**
     * @brief Checking if there are duplicates in the vector

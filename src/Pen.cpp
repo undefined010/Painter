@@ -5,6 +5,7 @@
 **/
 
 
+#include <SFML/Window/Keyboard.hpp>
 #define DEBUG_PEN false
 
 #include "Pen.h"
@@ -76,6 +77,24 @@ void Pen::rainbow_color() {
 
 }
 
+void Pen::clear_all() {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
+        for (auto& i : this->circles) {
+            
+            #if DEBUG_PEN
+                std::cerr << "deleted : " << this->circles.size() << '\n';
+            #endif
+        
+            delete i;
+
+        }
+
+        this->circles.clear();
+    }
+
+    else return;
+}
+
 void Pen::paint_on_canvase(sf::RenderWindow& window) {
     
     bool mouseInsideWindowX = sf::Mouse::getPosition(window).x < window.getSize().x - this->getRadius() && sf::Mouse::getPosition(window).x >= 100;  
@@ -103,6 +122,7 @@ void Pen::paint_on_canvase(sf::RenderWindow& window) {
     for ( auto& c : this->circles )
         window.draw(*c);
 
+    this->clear_all();
 
 
 }
