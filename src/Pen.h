@@ -7,6 +7,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Shape.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <memory>
 #include <sys/types.h>
 #include <vector>
 
@@ -67,13 +68,6 @@ public:
 
     bool isClicked();
 
-
-    /**
-    * @brief random colors 
-    **/
-
-    void rainbow_color();
-
 private:
     /**
     * @brief Delete all circles inside the @param circles
@@ -86,18 +80,11 @@ private:
     * @param circles The vector of circles
     */
 
-    void cheak_circles(std::vector<sf::CircleShape*>& circles);
-
-    /**
-    * @brief Eliminate the duplicates in the vector
-    * @param circles The vector of circles
-    */
-
-    void eliminated(std::vector<sf::CircleShape*>& circles , unsigned index);
+    void cheak_circles(std::vector<std::shared_ptr<sf::CircleShape>>& circles);
 
 private:
     unsigned radius;
-    std::vector<sf::CircleShape*> circles;
+    std::vector<std::shared_ptr<sf::CircleShape>> circles;
     sf::Color color;
     sf::Vector2f pos;
 

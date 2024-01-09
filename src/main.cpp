@@ -42,9 +42,6 @@ int main() {
 
 
         pen.paint_on_canvase(window);
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
-            pen.rainbow_color();
         
         pen.update_pos(window);
 

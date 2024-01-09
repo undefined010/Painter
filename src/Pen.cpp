@@ -5,9 +5,11 @@
 **/
 
 
-#include <SFML/Window/Keyboard.hpp>
+
 #define DEBUG_PEN false
 
+#include <SFML/Window/Keyboard.hpp>
+#include <memory>
 #include "Pen.h"
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Color.hpp>
@@ -25,36 +27,16 @@ Pen::~Pen()
 {
     if (this->circles.size() == 0)
         return;
-
-    for (auto& i : this->circles)
-    {
-        #if DEBUG_PEN
-            std::cerr << "deleted : " << this->circles.size() << '\n';
-        #endif
-        
-        delete i;
-
-    }
-
     this->circles.clear();
 }
 
-void Pen::eliminated(std::vector<sf::CircleShape*>& circles , unsigned index) {
-    if (circles.size() == 0) return;
-
-    delete circles.at(index);
-
-    circles.erase(circles.begin() + index);
-    
-}
-
-void Pen::cheak_circles(std::vector<sf::CircleShape*>& vec) {
+void Pen::cheak_circles(std::vector<std::shared_ptr<sf::CircleShape>>& vec) {
 
     // time : O(n)
 
     if (vec.size() == 0) return;
     
-    auto last = std::unique(vec.begin() , vec.end() ,[](sf::CircleShape* a , sf::CircleShape* b) -> bool {
+    auto last = std::unique(vec.begin() , vec.end() ,[](std::shared_ptr<sf::CircleShape> a , std::shared_ptr<sf::CircleShape> b) -> bool {
         return (*a).getPosition().x == (*b).getPosition().x && (*a).getPosition().y == (*b).getPosition().y;
     } );
 
@@ -71,28 +53,10 @@ void Pen::update_pos(const sf::RenderWindow& window) {
     this->setPosition(this->pos);
 }
 
-void Pen::rainbow_color() {
-    
-    this->setFillColor(sf::Color(rand() % 255 , rand() % 255, rand() % 255 , 255));
-
-}
-
 void Pen::clear_all() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
-        for (auto& i : this->circles) {
-            
-            #if DEBUG_PEN
-                std::cerr << "deleted : " << this->circles.size() << '\n';
-            #endif
-        
-            delete i;
-
-        }
-
         this->circles.clear();
     }
-
-    else return;
 }
 
 void Pen::paint_on_canvase(sf::RenderWindow& window) {
@@ -106,7 +70,7 @@ void Pen::paint_on_canvase(sf::RenderWindow& window) {
             std::cerr << "pressed\n";
         #endif
 
-        sf::CircleShape* temp = new sf::CircleShape();
+        std::shared_ptr<sf::CircleShape> temp = std::make_unique<sf::CircleShape>();
 
         temp->setRadius(this->getRadius());
         temp->setFillColor(this->getFillColor());
@@ -121,7 +85,7 @@ void Pen::paint_on_canvase(sf::RenderWindow& window) {
 
     for ( auto& c : this->circles )
         window.draw(*c);
-
+    
     this->clear_all();
 
 
