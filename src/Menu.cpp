@@ -70,29 +70,40 @@ void Menu::pen_click(Pen& pen) {
 }
 
 void Menu::init() {
+    const sf::Vector2f rec_size = {50, 50};
+    sf::Color clrs[3][2] = {{sf::Color::Red, sf::Color::Blue},
+                             {sf::Color::White, sf::Color::Cyan},
+                             {sf::Color::Green, sf::Color::Yellow}};
 
-    const sf::Vector2f rec_size = {50 , 50};
-    sf::Color clrs [3][2] = {{sf::Color::Red , sf::Color::Blue} , {sf::Color::White , sf::Color::Cyan} , {sf::Color::Green , sf::Color::Yellow} };
+    int ii = 0;
+    int jj = 0;
 
-    int ii = 0 ; int jj = 0;
-    //    std::shared_ptr<sf::RectangleShape> temp = std::make_unique<sf::RectangleShape>();
-    // 
-    for (int i = 0 ; i < 3 ; ++i) {
-        //std::cerr << ii << ' ' << jj << '\n';
-        for (int j = 0 ; j < 100 ; j+=50) {
-            std::shared_ptr<sf::RectangleShape> temp = std::make_unique<sf::RectangleShape>();
-            
-            temp->setFillColor(clrs[ii][jj]);
-            temp->setSize(rec_size);
-            temp->setPosition(sf::Vector2f(j , i * rec_size.y));
+    // Clear existing menu content to reuse rectangles
+    this->m_menuContent.clear();
 
-            this->m_menuContent.push_back(temp);
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 100; j += 50) {
+            // Reuse existing sf::RectangleShape instances if available
+            std::shared_ptr<sf::RectangleShape> temp;
+            if (ii * 2 + jj < this->m_menuContent.size()) {
+                temp = this->m_menuContent[ii * 2 + jj];
+                temp->setFillColor(clrs[ii][jj]);
+                temp->setSize(rec_size);
+                temp->setPosition(sf::Vector2f(j, i * rec_size.y));
+            } else {
+                temp = std::make_unique<sf::RectangleShape>();
+                temp->setFillColor(clrs[ii][jj]);
+                temp->setSize(rec_size);
+                temp->setPosition(sf::Vector2f(j, i * rec_size.y));
+                this->m_menuContent.push_back(temp);
+            }
 
             ++jj;
         }
         jj = 0;
         ++ii;
     }
-
 }
+
+
 

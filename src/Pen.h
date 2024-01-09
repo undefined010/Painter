@@ -73,7 +73,7 @@ private:
     * @brief Delete all circles inside the @param circles
     **/
 
-    void clear_all();
+    void cheak_if_want_to_clear();
 
     /**
     * @brief Checking if there are duplicates in the vector

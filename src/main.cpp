@@ -20,7 +20,6 @@ int main() {
     Pen pen(10 , sf::Color::Red,sf::Vector2f(100 , 100));
     Menu menu(sf::Color(50,50,50,255));
 
-    window.setFramerateLimit(400.f);
 
     while (window.isOpen()) {
 
@@ -42,12 +41,10 @@ int main() {
 
 
         pen.paint_on_canvase(window);
-        
         pen.update_pos(window);
-
         window.draw(pen);
-        window.draw(menu);
 
+        window.draw(menu);
         menu.pen_click(pen);
         menu.draw_on_canvas(window);
 
